@@ -9,27 +9,35 @@ namespace Proyecto_de_Prueba.Controllers
     public class CarrosController : ControllerBase
     {
         public readonly string con;
-        public CarrosController(IConfiguration configuration) {
+        public CarrosController(IConfiguration configuration)
+        {
             con = configuration.GetConnectionString("conexion");
         }
         [HttpGet]
-        public IEnumerable<Carros> Get() {
-        List<Carros> carros=new();
+        public IEnumerable<Carros> Get()
+        {
+            List<Carros> carros = new();
             using (SqlConnection connection = new(con))
             {
                 connection.Open();
-                using (SqlCommand cmd=new("Listarcarros", connection))
-                { cmd.CommandType=System.Data.CommandType.StoredProcedure; 
+                using (SqlCommand cmd = new("Listarcarros", connection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
 
-                                    Carros p = new Carros{ IdCarro = Convert.ToInt32(reader["id"]),
+                            Carros p = new Carros
+                            {
+                                IdCarro = Convert.ToInt32(reader["id"]),
                                 PlacaCarro = reader["PlacaCarro"].ToString(),
                                 ModeloCarro = reader["ModeloCarro"].ToString(),
-                                CiudadRecogidaId = Convert.ToInt32(reader["CiudadRecogidaId"]),
-                                CiudadDevolucionId = Convert.ToInt32(reader["CiudadDevoluciónId"])
+                                CiudadRecogida = new Ciudad { IdCiudad = Convert.ToInt32(reader["CiudadRecogidaId"]) },
+                                CiudadDevolucion = new Ciudad
+                                {
+                                    IdCiudad = Convert.ToInt32(reader["CiudadDevoluciónId"])
+                                }
 
                             };
                             carros.Add(p);
@@ -38,9 +46,9 @@ namespace Proyecto_de_Prueba.Controllers
                 }
             }
             return carros;
-     
+
         }
-       
-    
+
+
     }
 }
