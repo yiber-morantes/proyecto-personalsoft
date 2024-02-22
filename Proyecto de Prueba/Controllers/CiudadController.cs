@@ -32,9 +32,6 @@ namespace Proyecto_de_Prueba.Controllers
                             Ciudad p = new Ciudad
                             {
                                 NombreCiudad = reader["nombreCiudad"].ToString(),
-                              
-                                
-
                             };
                             ciudad.Add(p);
                         }
