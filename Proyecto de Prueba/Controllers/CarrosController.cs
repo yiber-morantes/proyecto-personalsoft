@@ -1,5 +1,5 @@
 ﻿using Proyecto_de_Prueba.Models;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Proyecto_de_Prueba.Controllers

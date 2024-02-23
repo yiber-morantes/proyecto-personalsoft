@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Proyecto_de_Prueba.Models;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace Proyecto_de_Prueba.Controllers
 {
@@ -18,10 +17,11 @@ namespace Proyecto_de_Prueba.Controllers
         public IEnumerable<Ciudad> Get()
         {
             List<Ciudad> ciudad = new();
-            using (SqlConnection connection = new(con))
+
+            using (SqlConnection connection = new SqlConnection(con))
             {
                 connection.Open();
-                using (SqlCommand cmd = new("ListarCiudades", connection))
+                using (SqlCommand cmd = new SqlCommand("ListarCiudades", connection))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (SqlDataReader reader = cmd.ExecuteReader())

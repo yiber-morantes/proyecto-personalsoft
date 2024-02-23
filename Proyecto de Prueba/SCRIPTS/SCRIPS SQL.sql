@@ -1,6 +1,7 @@
 CREATE DATABASE MilesCar 
 use MilesCar 
-go 
+GO
+
  create table Carros(
  IdCarro int PRIMARY KEY IDENTITY(1,1) NOT NULL,
  PlacaCarro  varchar(25) NOT NULL,
@@ -17,13 +18,14 @@ go
  idCiudad int PRIMARY KEY IDENTITY(1,1) NOT NULL,
  nombreCiudad varchar (25) NOT NULL 
  )
-go
+GO
 
 INSERT INTO Ciudad (nombreCiudad) VALUES ('Barranquilla')
 INSERT INTO Ciudad (nombreCiudad) VALUES ('Medellin')
 INSERT INTO Ciudad (nombreCiudad) VALUES ('Cali')
 INSERT INTO Ciudad (nombreCiudad) VALUES ('Cartagena')
 INSERT INTO Ciudad (nombreCiudad) VALUES ('Bogota')
+GO
 
 CREATE OR ALTER PROC ListarCiudades(
  @nombreCiudad varchar(25)
@@ -33,7 +35,7 @@ Begin
 select * from Ciudad
 where nombreCiudad like '%'+@nombreCiudad+'%'
 end
-go
+GO
 
 CREATE OR ALTER PROC Listarcarros(
 @placaCarro  varchar(25),
@@ -48,4 +50,4 @@ select * from carros
 where PlacaCarro  like '%'+@placaCarro +'%' Or modeloCarro like '%'+@modeloCarro +'%' And activo = 1 
 And CiudadRecogidaId  like '%'+@ciudadRecogidaId +'%'And ciudadDevoluciónId  like '%'+@ciudadDevoluciónId +'%'
 end
-go
+GO
