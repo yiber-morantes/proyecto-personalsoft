@@ -38,16 +38,15 @@ end
 GO
 
 CREATE OR ALTER PROC Listarcarros(
-@placaCarro  varchar(25),
-@modeloCarro varchar(25),
-@activo bit,
+@placaCarro  varchar(25) = '',
+@modeloCarro varchar(25) = '',
 @ciudadRecogidaId Int,
-@ciudadDevoluciónId  Int
+@ciudadDevoluciónId  Int 
 )
 as 
 Begin
 select * from carros
 where PlacaCarro  like '%'+@placaCarro +'%' Or modeloCarro like '%'+@modeloCarro +'%' And activo = 1 
-And CiudadRecogidaId  like '%'+@ciudadRecogidaId +'%'And ciudadDevoluciónId  like '%'+@ciudadDevoluciónId +'%'
+And CiudadRecogidaId=@ciudadRecogidaId And ciudadDevoluciónId=@ciudadDevoluciónId 
 end
 GO

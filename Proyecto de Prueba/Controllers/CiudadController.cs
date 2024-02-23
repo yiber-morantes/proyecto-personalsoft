@@ -14,7 +14,7 @@ namespace Proyecto_de_Prueba.Controllers
             con = configuration.GetConnectionString("conexion");
         }
         [HttpGet]
-        public IEnumerable<Ciudad> Get()
+        public IEnumerable<Ciudad> Get(string nombreCiudad)
         {
             List<Ciudad> ciudad = new();
 
@@ -23,6 +23,7 @@ namespace Proyecto_de_Prueba.Controllers
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand("ListarCiudades", connection))
                 {
+                    cmd.Parameters.AddWithValue("@nombreCiudad", nombreCiudad);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

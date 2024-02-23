@@ -14,7 +14,7 @@ namespace Proyecto_de_Prueba.Controllers
             con = configuration.GetConnectionString("conexion");
         }
         [HttpGet]
-        public IEnumerable<Carros> Get()
+        public IEnumerable<Carros> Get(int ciudadRecorrida, int ciudadDevolucion,string placaCarro = "",string modeloCarro ="")
         {
             List<Carros> carros = new();
             using (SqlConnection connection = new(con))
@@ -22,6 +22,11 @@ namespace Proyecto_de_Prueba.Controllers
                 connection.Open();
                 using (SqlCommand cmd = new("Listarcarros", connection))
                 {
+                    cmd.Parameters.AddWithValue("@placaCarro", placaCarro);
+                    cmd.Parameters.AddWithValue("@modeloCarro", modeloCarro);
+                    cmd.Parameters.AddWithValue("@ciudadRecogidaId", ciudadRecorrida);
+                    cmd.Parameters.AddWithValue("@ciudadDevoluciónId", ciudadDevolucion);
+
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
